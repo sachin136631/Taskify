@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="form">
+            <form action="/submit" method="POST">
+                enter the task<br>
+                <input type="text" name="things">
+                <input type="submit" value="submit">
+            </form>
+        </div>
+
+        <div class="content">
+            <%if(content_of_the_div) {%>
+                <%content_of_the_div.forEach(function(x){%>
+                    
+                    <div class="boxx">
+                        <%=x.sadhanam%>
+                        <form action="/delete" method="POST">
+                            <input type="hidden" name="id" value="<%=x.id%>">
+                            <button type="submit">delete</button>
+                        </form>
+                        <button onclick="showpopup('<%=x.id%>','<%=x.sadhanam%>')">edit</button>
+                    </div>
+
+                    <%});%>
+                    <%}%>
+                </div>       
+            </div>
+            
+            
+            <div class="popup-overlay" id="popup-overlay"></div>
+            <div class="popup" id="popup">
+                <form action="/edit" method="POST">
+                    <input type="hidden" name="id" id="task-id">
+                    <input type="text" name="newtask" id="newtask">
+                    <button type="submit">save</button>
+                    <button onclick="closepopup()">cancel</button>
+                </form>
+            </div>
+<script>
+    function showpopup(id,task){
+        document.getElementById('task-id').value=id;
+        document.getElementById('newtask').value=task;
+        document.getElementById('popup-overlay').style.display='block';
+        document.getElementById('popup').style.display='block';
+    }
+
+    function closepopup(){
+        document.getElementById('popup-overlay').style.display='none';
+        document.getElementById('popup').style.display='none';
+    }
+</script>
+</body>
+</html>
